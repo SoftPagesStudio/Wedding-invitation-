@@ -1,122 +1,193 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation | Royal Gold Sparkle Edition</title><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet"><style>
-:root{
-  --gold1:#BF953F;
-  --gold2:#FCF6BA;
-  --gold3:#B38728;
+<title>Wedding Invitation</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #ffffff;
+    text-align: center;
+    overflow-x: hidden;
 }
 
-body{
-  font-family:'Montserrat',sans-serif;
-  background:#ffffff;
-  overflow-x:hidden;
+/* Sparkle Animation */
+.sparkle {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background: gold;
+    border-radius: 50%;
+    animation: fall 5s linear infinite;
 }
 
-.font-serif-royal{font-family:'Cinzel',serif;}
-.font-cursive{font-family:'Great Vibes',cursive;}
-
-.text-gold{
-  background:linear-gradient(90deg,var(--gold1),var(--gold2),var(--gold3));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+@keyframes fall {
+    0% { transform: translateY(-10px); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
 }
 
-/* GOLD SPARKLE ANIMATION */
-.sparkle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:gold;
-  border-radius:50%;
-  opacity:0;
-  animation:fall linear infinite;
-  box-shadow:0 0 10px gold;
+.container {
+    padding: 20px;
 }
 
-@keyframes fall{
-  0%{transform:translateY(-10vh) scale(0);opacity:0;}
-  10%{opacity:1;}
-  100%{transform:translateY(110vh) scale(1);opacity:0;}
+/* Title */
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    background: linear-gradient(45deg, gold, #fff8dc, gold);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shine 3s infinite;
 }
 
-/* typewriter */
-#typewriter::after{
-  content:'|';
-  animation:blink 0.8s infinite;
-}
-@keyframes blink{50%{opacity:0;}}
-
-.btn{
-  background:linear-gradient(90deg,var(--gold1),var(--gold3));
-  padding:10px 16px;
-  border-radius:999px;
-  color:white;
-  display:inline-block;
-  margin-top:10px;
+@keyframes shine {
+    0% { background-position: 0%; }
+    100% { background-position: 200%; }
 }
 
-</style></head><body><!-- Sparkles container --><div id="sparkles"></div><div class="max-w-2xl mx-auto px-6 py-16 text-center relative">  <img src="https://img.icons8.com/ios-filled/50/D4AF37/ganesh.png" class="mx-auto w-12 h-12 mb-6">  <h2 class="font-serif-royal tracking-[0.4em] text-sm text-[#B76E79] mb-3">Wedding Invitation</h2>
-  <div class="w-32 h-[1px] bg-gray-200 mx-auto mb-8"></div>  <p class="italic text-gray-500 mb-10">With blessings of family, we invite you to our sacred union</p>  <div class="mb-10">
-    <h1 class="font-serif-royal text-5xl text-gold uppercase">PRADEEP KUMAR</h1>
-    <div class="text-4xl text-[#B76E79] my-2">&</div>
-    <h1 class="font-serif-royal text-5xl text-gold uppercase">SHILPA</h1>
-  </div>  <div class="w-72 h-96 mx-auto mb-12 rounded-t-full overflow-hidden border-8 border-white shadow-xl">
-    <img src="im.jpg" class="w-full h-full object-cover">
-  </div>  <div class="mb-8">
-    <h3 class="font-serif-royal tracking-widest">APRIL 26 & 27, 2026</h3>
-    <p class="text-gray-600">5:00 PM onwards</p>
-  </div>  <div class="mb-8">
-    <h3 class="text-[#B76E79] text-sm tracking-widest">Sri Jagadguru Renukacharya Convention Hall</h3>
-    <a class="btn" href="https://maps.google.com" target="_blank">Open Map</a>
-  </div>  <!-- Countdown -->  <div class="bg-gray-50 py-8 rounded-3xl border">
-    <div class="flex justify-center gap-6">
-      <div><span id="days" class="text-3xl">00</span><div class="text-xs">Days</div></div>
-      <div><span id="hours" class="text-3xl">00</span><div class="text-xs">Hrs</div></div>
-      <div><span id="mins" class="text-3xl">00</span><div class="text-xs">Min</div></div>
-      <div><span id="secs" class="text-3xl text-yellow-600">00</span><div class="text-xs">Sec</div></div>
-    </div>
-  </div>  <div class="mt-16 min-h-[120px]">
-    <p id="typewriter" class="font-cursive text-3xl"></p>
-  </div></div><script>
-// Sparkles generator
-const container = document.getElementById("sparkles");
-for(let i=0;i<40;i++){
-  const s=document.createElement("div");
-  s.className="sparkle";
-  s.style.left=Math.random()*100+"vw";
-  s.style.animationDuration=(3+Math.random()*5)+"s";
-  s.style.animationDelay=Math.random()*5+"s";
-  container.appendChild(s);
+/* Date Section */
+.date {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-// Countdown
-const target=new Date("April 26, 2026 17:00:00").getTime();
-setInterval(()=>{
-  const now=new Date().getTime();
-  const d=target-now;
-  document.getElementById("days").innerText=Math.floor(d/86400000).toString().padStart(2,'0');
-  document.getElementById("hours").innerText=Math.floor((d%86400000)/3600000).toString().padStart(2,'0');
-  document.getElementById("mins").innerText=Math.floor((d%3600000)/60000).toString().padStart(2,'0');
-  document.getElementById("secs").innerText=Math.floor((d%60000)/1000).toString().padStart(2,'0');
-},1000);
+/* Countdown */
+#countdown {
+    margin: 10px 0;
+    font-size: 20px;
+    color: #333;
+}
 
-// Typewriter
-const text="We warmly invite you to bless our journey of love and togetherness. Your presence is our greatest gift.";
-let i=0;
-function type(){
-  if(i<text.length){
-    document.getElementById("typewriter").innerHTML+=text.charAt(i++);
-    setTimeout(type,50);
+/* Names */
+.names {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 0;
+    background: linear-gradient(45deg, #b76e79, #ff9aa2);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Message */
+.message {
+    font-size: 16px;
+    color: #000;
+    margin: 15px;
+}
+
+/* Images */
+img {
+    width: 90%;
+    border-radius: 15px;
+    margin: 10px 0;
+}
+
+/* Venue */
+.venue {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Map Button */
+.map-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #b76e79;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+/* Closing */
+.closing {
+    margin-top: 25px;
+    font-size: 15px;
+    color: #444;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Sparkles -->
+<script>
+for(let i=0;i<50;i++){
+    let s=document.createElement("div");
+    s.className="sparkle";
+    s.style.left=Math.random()*100+"%";
+    s.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(s);
+}
+</script>
+
+<div class="container">
+
+<div class="title">Wedding Invitation</div>
+
+<div class="date">
+    DATE <br>
+    April 26 & 27, 2026
+</div>
+
+<div id="countdown"></div>
+
+<div class="message">
+    With joyful hearts and blessings of our families, we warmly invite you to celebrate our wedding.
+</div>
+
+<div class="names">
+    PRADEEP KUMAR <br> & <br> SHILPA
+</div>
+
+<!-- Image -->
+<img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf" alt="Wedding Image">
+
+<div class="venue">
+    <b>VENUE</b><br>
+    Sri Jagadguru Renukacharya Convention Hall,<br>
+    Chikkamagaluru
+</div>
+
+<a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Sri+Jagadguru+Renukacharya+Convention+Hall+Chikkamagaluru" target="_blank">
+    Open Location
+</a>
+
+<div class="closing">
+    We eagerly await your presence to bless us, share happiness, and make our special day unforgettable together.
+</div>
+
+</div>
+
+<!-- Countdown Script -->
+<script>
+let countDownDate = new Date("April 26, 2026 00:00:00").getTime();
+
+let x = setInterval(function() {
+  let now = new Date().getTime();
+  let distance = countDownDate - now;
+
+  let d = Math.floor(distance / (1000 * 60 * 60 * 24));
+  let h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  let s = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML =
+  d + "D " + h + "H " + m + "M " + s + "S ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "Wedding Day!";
   }
-}
+}, 1000);
+</script>
 
-const obs=new IntersectionObserver(e=>{
-  if(e[0].isIntersecting) type();
-},{threshold:0.5});
-obs.observe(document.getElementById("typewriter"));
-
-</script></body>
+</body>
 </html>
