@@ -35,10 +35,10 @@
         /* 1. Title */
         h1.main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            letter-spacing: 6px;
+            font-size: 3rem;
+            letter-spacing: 5px;
             color: var(--dark-gold);
-            margin-bottom: 23px;
+            margin-bottom: 22px;
             text-transform: uppercase;
         }
 
@@ -133,7 +133,7 @@
 
         /* 7. Closing Statement */
         .closing {
-            font-style: cursive ;
+            font-family: 'Great Vibes', cursive;
             font-size: 1.5rem;
             margin-top: 60px;
             color: var(--text-color);
@@ -143,8 +143,8 @@
         /* Sparkle Animation */
         .sparkle {
             position: fixed;
-            background: radial-gradient(circle, #fff700 0%, rgba(212,175,55,0) 75%);
-            border-radius: 60%;
+            background: radial-gradient(circle, #fff700 0%, rgba(212,175,55,0) 85%);
+            border-radius: 80%;
             pointer-events: none;
             z-index: 1;
             animation: fall linear forwards;
@@ -153,7 +153,7 @@
         @keyframes fall {
             to {
                 transform: translateY(100vh) rotate(360deg);
-                opacity: 5;
+                opacity: 10;
             }
         }
 
