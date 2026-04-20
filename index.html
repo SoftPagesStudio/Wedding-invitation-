@@ -14,6 +14,15 @@ body {
     background: linear-gradient(to bottom, #ffffff, #f8f8f8);
     color: black;
     text-align: center;
+    overflow-x: hidden;
+}
+
+/* Gold particles */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 /* Container */
@@ -23,9 +32,10 @@ body {
 
 .ganesh {
     width: 70px;
+    margin-top: 10px;
 }
 
-/* Gold text */
+/* Gold gradient text */
 .gold {
     background: linear-gradient(45deg, #d4af37, #fff5cc, #d4af37);
     -webkit-background-clip: text;
@@ -33,12 +43,13 @@ body {
 }
 
 .title {
-    font-size: 40px;
+    font-size: 42px;
     font-family: 'Playfair Display', serif;
+    margin: 10px 0;
 }
 
 .names {
-    font-size: 30px;
+    font-size: 34px;
     margin: 20px 0;
 }
 
@@ -48,48 +59,42 @@ body {
     border-radius: 15px;
     border: 2px solid #d4af37;
     box-shadow: 0 0 15px rgba(212,175,55,0.5);
+    transition: 0.4s;
+}
+.couple:hover {
+    transform: scale(1.05);
 }
 
 /* Info */
 .info {
     font-size: 18px;
+    margin: 20px 0;
 }
 
-/* Countdown */
-.countdown {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 30px 0;
-}
-
-.box {
-    border: 2px solid #d4af37;
-    padding: 15px;
-    border-radius: 10px;
-    min-width: 60px;
-}
-
-.box span {
-    display: block;
-    font-size: 24px;
+a {
+    color: #b8962e;
     font-weight: bold;
 }
 
-.label {
-    font-size: 14px;
-    color: #777;
+/* Analog countdown */
+.clock {
+    width: 180px;
+    height: 180px;
+    border: 3px solid #d4af37;
+    border-radius: 50%;
+    margin: 30px auto;
+    position: relative;
+    background: white;
 }
 
-/* Button */
-.map-btn {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
+.hand {
+    position: absolute;
+    width: 50%;
+    height: 2px;
     background: #d4af37;
-    color: white;
-    border-radius: 25px;
-    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform-origin: left;
 }
 
 /* Typing */
@@ -104,14 +109,15 @@ body {
 
 /* Mobile */
 @media(max-width:600px){
-    .countdown {
-        flex-wrap: wrap;
-    }
+    .title { font-size: 30px; }
+    .names { font-size: 24px; }
 }
 </style>
 </head>
 
 <body>
+
+<canvas id="bg"></canvas>
 
 <div class="container">
 
@@ -130,16 +136,12 @@ PRADEEP KUMAR B L <br> ❤️ <br> SHILPA B M
 <div class="info">
 <p><b>Date:</b> April 26, 2026</p>
 <p><b>Venue:</b> Sri Jagadguru Renukacharya Convention Hall, Chikkamagaluru</p>
-
-<button class="map-btn" onclick="openMap()">Open Map</button>
+<p><a href="https://maps.google.com" target="_blank">View Map</a></p>
 </div>
 
-<!-- Countdown -->
-<div class="countdown">
-    <div class="box"><span id="days">0</span><div class="label">D</div></div>
-    <div class="box"><span id="hours">0</span><div class="label">H</div></div>
-    <div class="box"><span id="minutes">0</span><div class="label">M</div></div>
-    <div class="box"><span id="seconds">0</span><div class="label">S</div></div>
+<!-- Analog Clock -->
+<div class="clock">
+    <div id="dayHand" class="hand"></div>
 </div>
 
 <!-- Typing Letter -->
@@ -148,28 +150,19 @@ PRADEEP KUMAR B L <br> ❤️ <br> SHILPA B M
 </div>
 
 <script>
-// Countdown
-const weddingDate = new Date("April 26, 2026 10:00:00").getTime();
+// Analog countdown
+const wedding = new Date("April 26, 2026 10:00:00").getTime();
 
-setInterval(() => {
-    const now = new Date().getTime();
-    const gap = weddingDate - now;
+setInterval(()=>{
+    let now = new Date().getTime();
+    let diff = wedding - now;
 
-    const d = Math.floor(gap / (1000*60*60*24));
-    const h = Math.floor((gap / (1000*60*60)) % 24);
-    const m = Math.floor((gap / (1000*60)) % 60);
-    const s = Math.floor((gap / 1000) % 60);
+    let days = diff / (1000*60*60*24);
+    let angle = (days % 30) * 12;
 
-    document.getElementById("days").innerText = d;
-    document.getElementById("hours").innerText = h;
-    document.getElementById("minutes").innerText = m;
-    document.getElementById("seconds").innerText = s;
-}, 1000);
-
-// Open Map
-function openMap(){
-    window.open("https://www.google.com/maps/search/?api=1&query=Chikkamagaluru");
-}
+    document.getElementById("dayHand").style.transform =
+        `rotate(${angle}deg)`;
+},1000);
 
 // Typing effect
 const msg = "With love in our hearts, we invite you to join us as we begin our forever journey. Your presence will make our celebration truly unforgettable.";
@@ -183,7 +176,44 @@ function typing(){
     }
 }
 typing();
+
+// Gold particles (softer for white bg)
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<60;i++){
+    particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*1.5,
+        d: Math.random()*1.5
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "rgba(212,175,55,0.6)";
+
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+
+        p.y += p.d;
+        if(p.y > canvas.height){
+            p.y = 0;
+        }
+    });
+
+    requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
-    </html>
+</html>
